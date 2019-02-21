@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  hello:
+    image: python:3-alpine
+    container_name: hello
+    hostname: hello
+    networks:
+     - hello-world-net
+    volumes:
+     - "./src/hello/main.py:/app/main.py"
+    working_dir: /app
+    ports:
+     - "80:80"
+    command: python main.py
+
+  world:
+    image: golang:1.11-alpine
+    container_name: world
+    hostname: world
+    networks:
+     - hello-world-net
+    volumes:
+     - "./src/world/main.go:/app/main.go"
+    working_dir: /app
+    command: go run main.go
+
+networks:
+  hello-world-net:
