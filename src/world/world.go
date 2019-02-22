@@ -2,7 +2,8 @@ package main
 
 import (
   "net/http"
-  "fmt"
+	"fmt"
+	"os"
 )
 
 func main() {
@@ -11,9 +12,9 @@ func main() {
   		w.Write([]byte(message))
 	})	
 	
-	fmt.Println("Started at: 8080")
+	fmt.Println("Started at: " + os.Getenv("WORLD_PORT"))
 	
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":" + os.Getenv("WORLD_PORT"), nil); err != nil {
 	  panic(err)
     }
 }

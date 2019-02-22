@@ -1,24 +1,34 @@
-import urllib.request
 import socket
 import urllib.request
+import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+WORLD_ADDR = os.environ['WORLD_ADDR']
+WORLD_PORT = os.environ['WORLD_PORT']
+
 class handler(BaseHTTPRequestHandler):
+   def is_connected(self):
+     try:
+       host = socket.gethostbyname(WORLD_ADDR)
+       s = socket.create_connection((host, WORLD_PORT), 1)
+       return True
+     except:
+       pass
+     return False
+    
    def do_GET(self):
        self.send_response(200)
        self.send_header('Content-type','text/plain')
        self.end_headers()
 
-       sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-       result = sock.connect_ex(('world', 8080))
+       result = self.is_connected()
 
-       if result == 0:
-           print("Entered. !")
-           f = urllib.request.urlopen("http://world:8080/api")
+       if result:
+           f = urllib.request.urlopen("http://" + WORLD_ADDR + ":" + WORLD_PORT.__str__() + "/api")
            self.wfile.write(b"Hello " + f.read())
        else:
-           print("Exited. !")
-           self.wfile.write(b"Hello 404!")   
+           self.wfile.write(b"Hello 404!")
+
 def main():
    port = 80
    server_address = ('', port)
