@@ -11,7 +11,7 @@ spec:
   type: {{ .Values.hello.service.type }}
   ports:
     - port: {{ .Values.hello.service.port }}
-      targetPort: http
+      targetPort: 80
       protocol: TCP
       name: http
   selector:
@@ -31,7 +31,7 @@ spec:
   type: {{ .Values.world.service.type }}
   ports:
     - port: {{ .Values.world.service.port }}
-      targetPort: http
+      targetPort: 80
       protocol: TCP
       name: http
   selector:
