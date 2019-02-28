@@ -1,0 +1,81 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "hello.name" . }}
+  labels:
+    app: {{ template "hello.name" . }}
+    chart: {{ template "ping.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.hello.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "hello.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "hello.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.hello.deployment.name }}
+          image: "{{ .Values.hello.deployment.image.repository }}:{{ .Values.hello.deployment.image.tag }}"
+          imagePullPolicy: {{ .Values.hello.deployment.image.pullPolicy }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+
+---
+
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "world.name" . }}
+  labels:
+    app: {{ template "world.name" . }}
+    chart: {{ template "ping.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.world.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "world.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "world.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.world.deployment.name }}
+          image: "{{ .Values.world.deployment.image.repository }}:{{ .Values.world.deployment.image.tag }}"
+          imagePullPolicy: {{ .Values.world.deployment.image.pullPolicy }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
