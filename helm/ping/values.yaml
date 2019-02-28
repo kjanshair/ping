@@ -10,7 +10,10 @@ hello:
       tag: latest
       pullPolicy: IfNotPresent
     replicaCount: 1
+    WORLD_ADDR: world-service.default.svc.cluster.local
+    WORLD_PORT: 80
   service:
+    name: hello-service
     type: LoadBalancer
     port: 80
 
@@ -22,8 +25,10 @@ world:
       tag: latest
       pullPolicy: IfNotPresent
     replicaCount: 1
+    WORLD_PORT: 80
   service:
-    type: ClusterIP
+    name: world-service
+    type: NodePort
     port: 80
 
 

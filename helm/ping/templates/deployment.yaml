@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "hello.name" . }}
@@ -23,6 +23,11 @@ spec:
         - name: {{ .Values.hello.deployment.name }}
           image: "{{ .Values.hello.deployment.image.repository }}:{{ .Values.hello.deployment.image.tag }}"
           imagePullPolicy: {{ .Values.hello.deployment.image.pullPolicy }}
+          env:
+           - name: WORLD_ADDR
+             value: "{{ .Values.hello.deployment.WORLD_ADDR }}"
+           - name: WORLD_PORT
+             value: "{{ .Values.hello.deployment.WORLD_PORT }}"
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
@@ -40,7 +45,7 @@ spec:
 
 ---
 
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "world.name" . }}
@@ -65,6 +70,9 @@ spec:
         - name: {{ .Values.world.deployment.name }}
           image: "{{ .Values.world.deployment.image.repository }}:{{ .Values.world.deployment.image.tag }}"
           imagePullPolicy: {{ .Values.world.deployment.image.pullPolicy }}
+          env:
+           - name: WORLD_PORT
+             value: "{{ .Values.world.deployment.WORLD_PORT }}"
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
