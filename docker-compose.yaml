@@ -3,7 +3,7 @@ version: "3"
 services:
   hello:
     build: ./src/hello
-    image: hello:latest
+    image: kjanshair/hello:latest
     container_name: hello
     hostname: hello
     networks:
@@ -20,7 +20,7 @@ services:
 
   world:
     build: ./src/world
-    image: world:latest
+    image: kjanshair/world:latest
     container_name: world
     hostname: world
     networks:
