@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  hello:
+    build: ./src/hello
+    image: kjanshair/hello:latest
+    container_name: hello
+    hostname: hello
+    networks:
+     - hello-world-net
+    working_dir: /app
+    ports:
+     - "80:80"
+    environment:
+     - WORLD_ADDR=world
+     - WORLD_PORT=8080
+
+  world:
+    build: ./src/world
+    image: kjanshair/world:latest
+    container_name: world
+    hostname: world
+    networks:
+     - hello-world-net
+    environment:
+     - WORLD_PORT=8080
+    working_dir: /app
+
+networks:
+  hello-world-net:
