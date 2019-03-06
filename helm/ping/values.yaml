@@ -9,6 +9,7 @@ hello:
       repository: kjanshair/hello
       tag: latest
       pullPolicy: IfNotPresent
+      ImagePullPolicy: Always
     replicaCount: 1
     WORLD_ADDR: world-service.yap-dev.svc.cluster.local
     WORLD_PORT: 80
@@ -24,6 +25,7 @@ world:
       repository: kjanshair/world
       tag: latest
       pullPolicy: IfNotPresent
+      ImagePullPolicy: Always
     replicaCount: 1
     WORLD_PORT: 80
   service:

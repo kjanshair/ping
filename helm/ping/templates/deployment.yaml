@@ -22,7 +22,7 @@ spec:
       containers:
         - name: {{ .Values.hello.deployment.name }}
           image: "{{ .Values.hello.deployment.image.repository }}:{{ .Values.hello.deployment.image.tag }}"
-          imagePullPolicy: {{ .Values.hello.deployment.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.hello.deployment.image.ImagePullPolicy }}
           env:
            - name: WORLD_ADDR
              value: "{{ .Values.hello.deployment.WORLD_ADDR }}"
@@ -69,7 +69,7 @@ spec:
       containers:
         - name: {{ .Values.world.deployment.name }}
           image: "{{ .Values.world.deployment.image.repository }}:{{ .Values.world.deployment.image.tag }}"
-          imagePullPolicy: {{ .Values.world.deployment.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.world.deployment.image.ImagePullPolicy }}
           env:
            - name: WORLD_PORT
              value: "{{ .Values.world.deployment.WORLD_PORT }}"
