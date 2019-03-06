@@ -10,7 +10,7 @@ hello:
       tag: latest
       pullPolicy: IfNotPresent
     replicaCount: 1
-    WORLD_ADDR: world-service.default.svc.cluster.local
+    WORLD_ADDR: world-service.yap-dev.svc.cluster.local
     WORLD_PORT: 80
   service:
     name: hello-service

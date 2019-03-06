@@ -2,33 +2,25 @@ version: "3"
 
 services:
   hello:
-    image: kjanshair/hello
+    image: kjanshair/hello:latest
     container_name: hello
     hostname: hello
     networks:
      - hello-world-net
-    volumes:
-     - "./src/hello/hello.py:/app/hello.py"
-    working_dir: /app
     ports:
      - "80:80"
     environment:
      - WORLD_ADDR=world
      - WORLD_PORT=8081
-    command: python hello.py
 
   world:
-    image: golang:1.11-alpine
+    image: kjanshair/world:latest
     container_name: world
     hostname: world
     networks:
      - hello-world-net
     environment:
      - WORLD_PORT=8081
-    volumes:
-     - "./src/world/world.go:/app/world.go"
-    working_dir: /app
-    command: go run world.go
 
 networks:
   hello-world-net:

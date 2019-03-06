@@ -1,5 +1,5 @@
-import socket
 import urllib.request
+import requests
 import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
@@ -8,11 +8,13 @@ WORLD_PORT = os.environ['WORLD_PORT']
 
 class handler(BaseHTTPRequestHandler):
    def do_GET(self):
-       self.send_response(200)
-       self.send_header('Content-type','text/plain')
-       self.end_headers()
+       try:
+         r = requests.get("http://" + WORLD_ADDR + ":" + WORLD_PORT.__str__() + "/api", timeout=2)
+         result = True
+       except:
+         result = False
 
-       if os.system("ping -c 1 -t 2 " + WORLD_ADDR) == 0:
+       if result:
            f = urllib.request.urlopen("http://" + WORLD_ADDR + ":" + WORLD_PORT.__str__() + "/api")
            self.wfile.write(b"Hello " + f.read())
        else:
