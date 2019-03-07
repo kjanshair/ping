@@ -15,10 +15,11 @@ class handler(BaseHTTPRequestHandler):
          result = False
 
        if result:
-           f = urllib.request.urlopen("http://" + WORLD_ADDR + ":" + WORLD_PORT.__str__() + "/api")
-           self.wfile.write(b"Hello " + f.read())
+         f = urllib.request.urlopen("http://" + WORLD_ADDR + ":" + WORLD_PORT.__str__() + "/api")
+         self.wfile.write(b"Hello " + f.read())
        else:
-           self.wfile.write(b"Hello 404!")
+         print("Error... 404\n")
+         self.wfile.write(b"Hello 404!")
 
 def main():
    port = 80

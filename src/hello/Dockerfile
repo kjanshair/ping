@@ -8,4 +8,4 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT python hello.py
+ENTRYPOINT ["python","-u","hello.py"]
